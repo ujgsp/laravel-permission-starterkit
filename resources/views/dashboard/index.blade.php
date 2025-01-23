@@ -7,9 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Empty card | {{ Auth::user()->getRoleNames()->implode(', ') }}</h5>
-                </div>
-                <div class="card-body">
+                    <h5 class="card-title mb-0">Welcome, {{ Auth::user()->getRoleNames()->implode(', ') }}</h5>
                 </div>
             </div>
 
@@ -36,9 +34,7 @@
                             <h1 class="mt-1 mb-3"><span style="font-size: 15px; position: relative; bottom: 5px;"
                                       class="badge bg-success">1.0.0</span> Laravel Spatie Starterkit</h1>
                             <div class="mb-0">
-                                <span class="text-muted">Developed &amp; Maintained by RelitDev. Thank you for purchasing
-                                    our
-                                    product.</span>
+                                <span class="text-muted">Developed &amp; Maintained by RelitDev</span>
                             </div>
                         </div>
                     </div>
