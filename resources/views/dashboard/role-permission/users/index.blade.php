@@ -6,15 +6,13 @@
 
 @section('content')
     @if (session()->has('success'))
-        <div class="mt-3 alert alert-success"
-             role="alert">
+        <div class="mt-3 alert alert-success" role="alert">
             {{ session('success') }}
         </div>
     @endif
 
     @if ($errors->any())
-        <div class="mt-3 alert alert-danger"
-             role="alert">
+        <div class="mt-3 alert alert-danger" role="alert">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -25,17 +23,12 @@
 
     <div class="tld-search-area">
         <div class="input-group tld-search-sec">
-            <form class="row g-1"
-                  method="GET"
-                  action="{{ route('users.index') }}">
+            <form class="row g-1" method="GET" action="{{ route('users.index') }}">
                 <div class="col-auto">
-                    <input type="text"
-                           name="query"
-                           class="form-control"
-                          value="{{ request('query') }}"
-                           placeholder="Search">
+                    <input type="text" name="query" class="form-control" value="{{ request('query') }}"
+                        placeholder="Search">
                 </div>
-                <div class="col-auto">
+                {{-- <div class="col-auto">
                     <select name="type"
                             class="form-select">
                         <option value="all">All</option>
@@ -43,19 +36,16 @@
                         <option value="whois">Whois</option>
                         <option value="price">Price</option>
                     </select>
-                </div>
+                </div> --}}
                 <div class="col-auto">
-                    <button class="btn btn-primary"
-                            type="submit">Search</button>
+                    <button class="btn btn-primary" type="submit">Search</button>
                 </div>
             </form>
         </div>
         @can('create.user')
-        <a href="{{ route('users.create') }}"
-           class="mr-2 btn btn-primary">
-            <i class="align-middle"
-               data-feather="plus"></i>
-            Add User</a>
+            <a href="{{ route('users.create') }}" class="mr-2 btn btn-primary">
+                <i class="align-middle" data-feather="plus"></i>
+                Add User</a>
         @endcan
     </div>
 
@@ -86,18 +76,15 @@
                         <td>
                             @can('edit.user')
                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}"
-                                   class="btn btn-sm btn-primary">Edit</a>
+                                    class="btn btn-sm btn-primary">Edit</a>
                             @endcan
 
                             @can('delete.user')
-                                <form action="{{ route('users.destroy', $user->id) }}"
-                                      method="post"
-                                      class="d-inline">
+                                <form action="{{ route('users.destroy', $user->id) }}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
-                                    <button title="Delete"
-                                            class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Are you sure want to delete this: {{ $user->name }} ?')">
+                                    <button title="Delete" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Are you sure want to delete this: {{ $user->name }} ?')">
                                         Delete
                                     </button>
                                 </form>

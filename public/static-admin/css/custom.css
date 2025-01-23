@@ -160,3 +160,10 @@ span,
 .ck-editor__editable {
     min-height: 300px;
 }
+
+
+/* error message custom css */
+.help-block {
+    color: #dc3545; /* Warna merah untuk pesan error */
+    font-size: 0.875em; /* Opsional: Ukuran font */
+}
