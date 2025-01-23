@@ -64,7 +64,17 @@ Kami sangat menghargai kontribusi Anda untuk pengembangan proyek ini. Berikut ad
    - Perbaikan dokumentasi.
 
 ## Screenshot
-![Halaman Dashboard](public/screenshot/Screenshot.png)
+- Halaman Dashboard
+   ![Halaman Dashboard](public/screenshot/Screenshot.png)
+
+- Halaman Permissions
+   ![Halaman Permissions](public/screenshot/02-halaman-permissions.jpeg)
+
+- Halaman Roles
+   ![Halaman Roles](public/screenshot/03-halaman-roles.jpeg)
+
+- Halaman Users
+   ![Halaman Users](public/screenshot/04-halaman-users.jpeg)
 
 
 ## Lisensi
