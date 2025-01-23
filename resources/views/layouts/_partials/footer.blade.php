@@ -12,13 +12,8 @@
                 <ul class="list-inline">
                     <li class="list-inline-item">
                         <a class="text-muted"
-                           href="#"
+                           href="https://github.com/ujgsp/laravel-permission-starterkit"
                            target="_blank">Support</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="text-muted"
-                           href="#"
-                           target="_blank">Help Center</a>
                     </li>
                 </ul>
             </div>
