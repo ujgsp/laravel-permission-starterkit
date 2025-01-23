@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +18,7 @@ class DashboardUserController extends Controller
          * permission dengan cara ini ada beberapa hal yang perlu diperhatikan:
          * 1. Izin (Permission) Harus Sudah Dibuat: Pastikan izin (permission) yang Anda gunakan sudah dibuat di dalam sistem.
          * 2. Izin Harus Sudah Diberikan ke Role atau User: Pastikan role atau user yang mengakses metode tersebut sudah diberikan izin yang sesuai.
-        */
+         */
         $this->middleware('permission:view.user', ['only' => ['index']]);
         $this->middleware('permission:create.user', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit.user', ['only' => ['update', 'edit']]);
@@ -32,8 +34,8 @@ class DashboardUserController extends Controller
 
         if ($query) {
             $users = User::where('name', 'LIKE', "%$query%")
-                    ->orWhere('email','LIKE', "%$query%" )
-                    ->paginate(10)->withQueryString();
+                ->orWhere('email', 'LIKE', "%$query%")
+                ->paginate(10)->withQueryString();
         } else {
             $users = User::paginate(10);
         }
@@ -57,37 +59,25 @@ class DashboardUserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|min:6|max:20',
-            'roles' => 'required',
-        ]);
-
+        $validatedData = $request->validated();
+        
         try {
-            // Simpan data
             $user = User::create([
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($validatedData['password']),
             ]);
 
-            $user->syncRoles($request->roles);
+            $user->syncRoles($validatedData['roles']);
 
-            return redirect()->route('users.index')->with('success', 'User has been created successfully.');
+            return redirect()
+                ->route('users.index')
+                ->with('success', 'User has been created successfully.');
         } catch (\Throwable $th) {
-            return redirect()->route('users.index')->withInput($request->all())->withErrors([$th->getMessage()]);
+            return back()->withInput()->with('error', 'User gagal ditambah!');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
     }
 
     /**
@@ -107,13 +97,9 @@ class DashboardUserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|unique:users,email,' . $user->id,
-            'roles' => 'required|array',
-        ]);
+        $validatedData = $request->validated();
 
         try {
             // Update data user
@@ -126,7 +112,7 @@ class DashboardUserController extends Controller
                 $request->validate([
                     'password' => 'required|string|min:6|max:20',
                 ]);
-                $userData['password'] = Hash::make($request->password);
+                $userData['password'] = Hash::make($validatedData['password']);
             }
 
             $user->update($userData);
