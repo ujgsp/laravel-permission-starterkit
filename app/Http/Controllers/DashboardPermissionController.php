@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PermissionStoreRequest;
+use App\Http\Requests\PermissionUpdateRequest;
 use Illuminate\Http\Request;
 
 use Spatie\Permission\Models\Permission;
@@ -51,30 +53,16 @@ class DashboardPermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PermissionStoreRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|unique:permissions,name'
-        ]);
-
         try {
             // Simpan data
-            Permission::create([
-                'name' => $validatedData['name'],
-            ]);
+            Permission::create($request->all());
 
             return redirect()->route('permissions.index')->with('success', 'Permission has been created successfully.');
         } catch (\Throwable $th) {
             return redirect()->route('permissions.index')->withInput($request->all())->withErrors([$th->getMessage()]);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Permission $permission)
-    {
-        //
     }
 
     /**
@@ -90,17 +78,11 @@ class DashboardPermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Permission $permission)
+    public function update(PermissionUpdateRequest $request, Permission $permission)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|unique:permissions,name,'. $permission->id
-        ]);
-
         try {
             // Simpan data
-            $permission->update([
-                'name' => $validatedData['name'],
-            ]);
+            $permission->update($request->all());
 
             return redirect()->route('permissions.index')->with('success', 'Permission has been updated successfully.');
         } catch (\Throwable $th) {
