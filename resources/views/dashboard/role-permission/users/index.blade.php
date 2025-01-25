@@ -29,8 +29,7 @@
                         placeholder="Search">
                 </div>
                 {{-- <div class="col-auto">
-                    <select name="type"
-                            class="form-select">
+                    <select name="type" class="form-select">
                         <option value="all">All</option>
                         <option value="tld">TLD</option>
                         <option value="whois">Whois</option>
