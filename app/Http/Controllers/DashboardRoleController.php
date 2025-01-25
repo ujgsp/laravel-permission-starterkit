@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleStoreRequest;
+use App\Http\Requests\RoleUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -51,30 +53,17 @@ class DashboardRoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RoleStoreRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|unique:roles,name'
-        ]);
 
         try {
             // Simpan data
-            Role::create([
-                'name' => $validatedData['name'],
-            ]);
+            Role::create($request->all());
 
             return redirect()->route('roles.index')->with('success', 'Role has been created successfully.');
         } catch (\Throwable $th) {
             return redirect()->route('roles.index')->withInput($request->all())->withErrors([$th->getMessage()]);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Role $role)
-    {
-        //
     }
 
     /**
@@ -90,17 +79,11 @@ class DashboardRoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(RoleUpdateRequest $request, Role $role)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|unique:roles,name,' . $role->id
-        ]);
-
         try {
             // Simpan data
-            $role->update([
-                'name' => $validatedData['name'],
-            ]);
+            $role->update($request->all());
 
             return redirect()->route('roles.index')->with('success', 'Role has been updated successfully.');
         } catch (\Throwable $th) {
