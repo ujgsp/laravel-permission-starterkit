@@ -50,7 +50,7 @@
         <div class="sidebar-brand">
             <div class="product-info d-flex justify-space-between">
                 <span class="badge">RelitDev</span>
-                <span class="badge text-success">1.0</span>
+                <span class="badge text-success">{{ config('app.version') }}</span>
             </div>
         </div>
     </div>

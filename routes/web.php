@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPermissionController;
+use App\Http\Controllers\DashboardProfileController;
 use App\Http\Controllers\DashboardRoleController;
 use App\Http\Controllers\DashboardUserController;
 use Illuminate\Support\Facades\Route;
@@ -28,16 +29,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // DASHBOARD
 Route::group(['middleware' => ['auth','role:superadmin|admin']], function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    // Permissions
-    Route::resource('/dashboard/permissions', DashboardPermissionController::class);
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+        
+        Route::resource('permissions', DashboardPermissionController::class);
 
-    // Roles
-    Route::get('/dashboard/roles/{role}/givePermissions', [DashboardRoleController::class, 'addPermissionToRole'])->name('roles.add.permission');
-    Route::put('/dashboard/roles/{role}/givePermissions', [DashboardRoleController::class, 'updatePermissionToRole'])->name('roles.update.permission');
-    Route::resource('/dashboard/roles', DashboardRoleController::class);
+        Route::get('roles/{role}/givePermissions', [DashboardRoleController::class, 'addPermissionToRole'])->name('roles.add.permission');
+        Route::put('roles/{role}/givePermissions', [DashboardRoleController::class, 'updatePermissionToRole'])->name('roles.update.permission');
+        Route::resource('roles', DashboardRoleController::class);
 
-    // Users
-    Route::resource('/dashboard/users', DashboardUserController::class);
+        Route::resource('users', DashboardUserController::class);
+
+        Route::get('profile', [DashboardProfileController::class, 'index'])->name('profile.index');
+        Route::put('profile/update', [DashboardProfileController::class, 'update'])->name('profile.update');
+    });
 });
