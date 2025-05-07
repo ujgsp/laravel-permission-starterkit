@@ -1,7 +1,6 @@
-# Rilis v1.1.0
+# Rilis v1.0.0-adminlte
 
 #### FITUR
-1. Penambahan halaman edit profile
    
 #### BUG
 

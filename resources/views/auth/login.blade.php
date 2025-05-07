@@ -66,8 +66,8 @@
                         Saya lupa kata sandi
                     </a>
                 </p>
-                <a href="#" target="_blank">
-                    Versi v2.0.0
+                <a href="#">
+                    {{ config('app.version') }}
                 </a>
             </div>
         </div>
