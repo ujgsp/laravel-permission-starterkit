@@ -1,59 +1,76 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div class="card">
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <h3 class="card-title float-none text-center">
+                Masuk untuk memulai sesi Anda
+            </h3>
+        </div>
         <div class="card-body">
-            <div class="m-sm-3">
-                <form method="POST"
-                      action="{{ route('login') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input class="form-control form-control-lg @error('email') is-invalid @enderror"
-                               type="email"
-                               name="email"
-                               placeholder="Enter your email" />
 
-                        @error('email')
-                            <span class="invalid-feedback"
-                                  role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input class="form-control form-control-lg @error('password') is-invalid @enderror"
-                               type="password"
-                               name="password"
-                               placeholder="Enter your password" />
-
-                        @error('password')
-                            <span class="invalid-feedback"
-                                  role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div>
-                        <div class="form-check align-items-center">
-                            <input id="customControlInline"
-                                   type="checkbox"
-                                   class="form-check-input"
-                                   value="remember-me"
-                                   name="remember-me"
-                                   {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label text-small"
-                                   for="customControlInline">Remember me</label>
+            <form action="{{ route('login') }}" method="post">
+                @csrf
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email"
+                        name="email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
                         </div>
                     </div>
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit"
-                           class="btn btn-lg btn-primary">Login</button>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                        placeholder="Password" name="password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
                     </div>
-                </form>
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">
+                                Ingat Saya
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">
+                            <span class="fas fa-sign-in-alt"></span> Masuk
+                        </button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer ">
+            <div class="d-flex justify-content-between">
+                <p class="my-0">
+                    <a href="#" class="">
+                        Saya lupa kata sandi
+                    </a>
+                </p>
+                <a href="#">
+                    {{ config('app.version') }}
+                </a>
             </div>
         </div>
     </div>
+    <!-- /.card -->
 @endsection
