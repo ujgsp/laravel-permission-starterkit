@@ -34,3 +34,4 @@
 - Biasanya alur kerja: `routes -> controller -> request/model -> view -> seeder/migration`.
 - Untuk fitur/bug ACL, cek `spatie/laravel-permission` usage, seeder roles/permissions, dan alias middleware di `bootstrap/app.php` terlebih dulu.
 - Jika menambah field/konfigurasi baru, cek dampaknya ke migration, seeder, validation, dan view form.
+- Setiap perubahan di `catatan_rilis.md` wajib diikuti update tag versi pada `config/app.php` bagian `version`.

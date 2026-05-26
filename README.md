@@ -1,7 +1,13 @@
-# Starterkit Laravel 10 dengan Spatie Permission menggunakan Template AdminKit
+# Starterkit Laravel 13 dengan Spatie Permission menggunakan Template AdminKit
 
-Aplikasi ini merupakan Starterkit Laravel 10 dengan Manajemen Akses Pengguna. 
-Diharapkan dapat menjadi template awal untuk konfigurasi dan pengembangan aplikasi berbasis Laravel dengan fitur manajemen pengguna.
+Aplikasi ini merupakan starterkit Laravel 13 untuk manajemen akses pengguna. Diharapkan menjadi template awal yang siap dipakai untuk pengembangan aplikasi berbasis Laravel dengan autentikasi, role, dan permission.
+
+## Stack
+- Laravel 13 / PHP 8.3
+- Vite 5 + npm
+- Spatie Permission
+- Konekt HTML form builder
+- AdminKit template
 
 ## Penggunaan
 Aplikasi ini dirancang sebagai template untuk:
@@ -26,6 +32,7 @@ Aplikasi ini dirancang sebagai template untuk:
 3. Jalankan perintah berikut untuk menginstal dependensi:
    ```bash
    composer install
+   npm install
    ```
 4. Salin file `.env.example` menjadi `.env`:
    ```bash
@@ -33,17 +40,18 @@ Aplikasi ini dirancang sebagai template untuk:
    ```
    Kemudian sesuaikan konfigurasi database Anda di file `.env`.
 
-5. Jalankan migrasi dan seeder untuk membuat tabel dan data awal:
-   ```bash
-   php artisan migrate --seed
-   ```
-6. Generate kunci aplikasi:
+5. Generate kunci aplikasi:
    ```bash
    php artisan key:generate
+   ```
+6. Jalankan migrasi dan seeder untuk membuat tabel dan data awal:
+   ```bash
+   php artisan migrate --seed
    ```
 7. Jalankan server pengembangan:
    ```bash
    php artisan serve
+   npm run dev
    ```
 8. Buka aplikasi di browser pada alamat [http://localhost:8000](http://localhost:8000). Gunakan akun bawaan berikut untuk login:
    ```
