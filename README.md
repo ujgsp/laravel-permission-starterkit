@@ -1,4 +1,4 @@
-# Starterkit Laravel 13 dengan Spatie Permission menggunakan Template AdminKit
+# Starterkit Laravel 13 dengan Spatie Permission menggunakan Template Tabler
 
 Aplikasi ini merupakan starterkit Laravel 13 untuk manajemen akses pengguna. Diharapkan menjadi template awal yang siap dipakai untuk pengembangan aplikasi berbasis Laravel dengan autentikasi, role, dan permission.
 
@@ -7,7 +7,7 @@ Aplikasi ini merupakan starterkit Laravel 13 untuk manajemen akses pengguna. Dih
 - Vite 5 + npm
 - Spatie Permission
 - Konekt HTML form builder
-- AdminKit template
+- Tabler template
 
 ## Penggunaan
 Aplikasi ini dirancang sebagai template untuk:
@@ -59,7 +59,7 @@ Aplikasi ini dirancang sebagai template untuk:
    Password: password
    ```
 ## Antarmuka
-Tampilan antarmuka aplikasi ini menggunakan [AdminKit](https://github.com/adminkit/adminkit) versi gratis, 
+Tampilan antarmuka aplikasi ini menggunakan [Tabler](https://tabler.io/admin-template),
 sebuah template admin modern yang responsif dan mudah dikustomisasi.
 
 ## Kontribusi
