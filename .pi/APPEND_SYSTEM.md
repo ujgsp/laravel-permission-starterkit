@@ -5,7 +5,7 @@
 - **Framework**: Laravel 13 / PHP 8.3
 - **Frontend build**: Vite 5 + npm
 - **Auth/ACL**: `laravel/ui`, `spatie/laravel-permission`, `konekt/html`, `proengsoft/laravel-jsvalidation`
-- **UI**: AdminKit template
+- **UI**: Tabler template
 
 ## Security rules
 - Jangan commit file `.env` atau kredensial apa pun.

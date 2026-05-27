@@ -1,57 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-    <meta name="author" content="AdminKit">
-    <meta name="keywords"
-        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="{{ config('app.name') }}">
+    <meta name="author" content="{{ config('app.name') }}">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="{{ asset('static-admin/img/icons/icon-48x48.png') }}" />
+    <title>@yield('title') | {{ config('app.name') }}</title>
 
-    <link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
-
-    <title>@yield('title') | YourWebsite</title>
-
-    <link href="{{ asset('static-admin/css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('static-admin/css/custom.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('css')
 </head>
+<body data-bs-theme="light">
+    <div class="page">
+        @include('layouts._partials.navbar')
 
-<body>
-    <div class="wrapper">
-        @include('layouts._partials.sidebar')
-
-        <div class="main">
-            @include('layouts._partials.header')
-
-            <main class="content">
-                <div class="container-fluid p-0">
-
-                    <h1 class="h3">
-                        <span class="ml-2">@yield('title')</span>
-                    </h1>
-                    <span class="mb-3">@yield('description')</span>
-
-                    @yield('content')
-
+        <div class="page-wrapper">
+            @unless(View::hasSection('hide_page_header'))
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <h2 class="page-title">@yield('title')</h2>
+                            @hasSection('description')
+                                <div class="text-secondary mt-1">@yield('description')</div>
+                            @endif
+                        </div>
+                        <div class="col-auto ms-auto">
+                            @yield('actions')
+                        </div>
+                    </div>
                 </div>
-            </main>
+            </div>
+            @endunless
+
+            <div class="page-body">
+                <div class="container-xl">
+                    @yield('content')
+                </div>
+            </div>
 
             @include('layouts._partials.footer')
-
         </div>
     </div>
 
-    <script src="{{ asset('static-admin/js/app.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     @stack('script')
 </body>
-
 </html>

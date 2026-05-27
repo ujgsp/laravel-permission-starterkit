@@ -1,17 +1,15 @@
 @extends('layouts.dashboard')
 
 @section('title', 'Edit Permission')
-
-@section('description', 'Edit a Permission')
+@section('description', 'Edit permission')
 
 @section('content')
-    <div class="mt-3 card">
+    <div class="card">
         <div class="card-body">
             {!! Form::model($permission, [
                 'route' => ['permissions.update', $permission],
                 'method' => 'PUT',
                 'id' => 'form-permission',
-                'class' => '',
             ]) !!}
 
             @include('dashboard.role-permission.permissions.form')

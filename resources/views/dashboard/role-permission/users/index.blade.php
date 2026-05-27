@@ -1,19 +1,17 @@
 @extends('layouts.dashboard')
 
 @section('title', 'Users')
-
-@section('description', 'List of all Users.')
+@section('description', 'List of all users.')
+@section('hide_page_header', true)
 
 @section('content')
     @if (session()->has('success'))
-        <div class="mt-3 alert alert-success" role="alert">
-            {{ session('success') }}
-        </div>
+        <div class="alert alert-success mb-3" role="alert">{{ session('success') }}</div>
     @endif
 
     @if ($errors->any())
-        <div class="mt-3 alert alert-danger" role="alert">
-            <ul>
+        <div class="alert alert-danger mb-3" role="alert">
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -21,85 +19,84 @@
         </div>
     @endif
 
-    <div class="tld-search-area">
-        <div class="input-group tld-search-sec">
-            <form class="row g-1" method="GET" action="{{ route('users.index') }}">
-                <div class="col-auto">
-                    <input type="text" name="query" class="form-control" value="{{ request('query') }}"
-                        placeholder="Search">
+    <div class="card">
+        <div class="card-header">
+            <div class="row w-100 align-items-center">
+                <div class="col">
+                    <h2 class="card-title mb-0 fs-3">@yield('title')</h2>
                 </div>
-                {{-- <div class="col-auto">
-                    <select name="type" class="form-select">
-                        <option value="all">All</option>
-                        <option value="tld">TLD</option>
-                        <option value="whois">Whois</option>
-                        <option value="price">Price</option>
-                    </select>
-                </div> --}}
-                <div class="col-auto">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="d-flex flex-wrap btn-list">
+                        <form method="GET" action="{{ route('users.index') }}" class="m-0">
+                            <div class="input-group input-group-flat w-auto">
+                                <span class="input-group-text">
+                                    <i class="ti ti-search"></i>
+                                </span>
+                                <input type="text" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search users...">
+                            </div>
+                        </form>
+                        @can('create.user')
+                            <a href="{{ route('users.create') }}" class="btn btn-primary d-none d-sm-inline-block">
+                                <i class="ti ti-plus me-1"></i> Add User
+                            </a>
+                            <a href="{{ route('users.create') }}" class="btn btn-primary d-sm-none btn-icon" aria-label="Add User">
+                                <i class="ti ti-plus"></i>
+                            </a>
+                        @endcan
+                    </div>
                 </div>
-            </form>
+            </div>
         </div>
-        @can('create.user')
-            <a href="{{ route('users.create') }}" class="mr-2 btn btn-primary">
-                <i class="align-middle" data-feather="plus"></i>
-                Add User</a>
-        @endcan
-    </div>
-
-    <div class="card flex-fill mt-3">
-        <table class="table table-hover my-0">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Roles</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($users as $user)
+        <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap datatable table-hover">
+                <thead>
                     <tr>
-                        <th scope="row">{{ $user->id }}</th>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>
-                            @if (!empty($user->getRoleNames()))
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th class="w-1">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($users as $user)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
                                 @foreach ($user->getRoleNames() as $rolename)
-                                    <span class="badge bg-success">{{ $rolename }}</span>
+                                    <span class="badge bg-success-lt text-success me-1">{{ $rolename }}</span>
                                 @endforeach
-                            @endif
-                        </td>
-                        <td>
-                            @can('edit.user')
-                                <a href="{{ route('users.edit', ['user' => $user->id]) }}"
-                                    class="btn btn-sm btn-primary">Edit</a>
-                            @endcan
-
-                            @can('delete.user')
-                                <form action="{{ route('users.destroy', $user->id) }}" method="post" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button title="Delete" class="btn btn-sm btn-danger"
-                                        onclick="return confirm('Are you sure want to delete this: {{ $user->name }} ?')">
-                                        Delete
-                                    </button>
-                                </form>
-                            @endcan
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="3">No users found..</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-list flex-nowrap justify-content-end">
+                                    @can('edit.user')
+                                        <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+                                    @endcan
+                                    @can('delete.user')
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="post" class="m-0 d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure want to delete this: {{ $user->name }} ?')">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endcan
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-secondary py-4">No users found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="">
+
+    <div class="mt-3">
         {{ $users->links('vendor.pagination.bootstrap-5') }}
     </div>
 @endsection

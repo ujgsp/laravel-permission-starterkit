@@ -1,55 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-	<meta name="author" content="AdminKit">
-	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+    <title>Auth | {{ config('app.name') }}</title>
 
-	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
-
-	<title>Sign In | AdminKit Demo</title>
-
-	<link href="{{ asset('static-admin/css/app.css') }}" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('css')
 </head>
+<body data-bs-theme="light">
+    <div class="page page-center">
+        <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <a href="{{ url('/') }}" class="navbar-brand navbar-brand-autodark justify-content-center">
+                    <span class="avatar avatar-md bg-primary-lt text-primary me-2 app-brand-icon">
+                        <i class="ti ti-shield-lock"></i>
+                    </span>
+                    <span class="fw-bold">{{ config('app.name') }}</span>
+                </a>
+                <div class="text-secondary mt-2">Sign in to continue</div>
+            </div>
 
-<body>
-	<main class="d-flex w-100">
-		<div class="container d-flex flex-column">
-			<div class="row vh-100">
-				<div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
-					<div class="d-table-cell align-middle">
+            @yield('content')
+        </div>
+    </div>
 
-						<div class="text-center mt-4">
-							<h1 class="h2">Laravel Spatie Starterkit Adminkit</h1>
-
-
-							<p class="lead">
-								Sign in to your account to continue
-							</p>
-						</div>
-
-                        @yield('content')
-
-
-						<div class="text-center mb-3">
-							Don't have an account? <a href="pages-sign-up.html">Sign up</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
-
-	<script src="{{ asset('static-admin/js/app.js') }}"></script>
-
+    @stack('script')
 </body>
-
 </html>
