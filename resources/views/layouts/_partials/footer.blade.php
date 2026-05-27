@@ -4,14 +4,15 @@
             <div class="col-lg-auto ms-lg-auto">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
-                        <a href="https://github.com/ujgsp/laravel-permission-starterkit" target="_blank" rel="noreferrer">Support</a>
+                        <a href="https://github.com/ujgsp/laravel-permission-starterkit" target="_blank" class="link-secondary" rel="noreferrer">Fork me on Github</a>
                     </li>
                 </ul>
             </div>
             <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <ul class="list-inline list-inline-dots mb-0">
-                    <li class="list-inline-item">{{ date('Y') }} &copy; {{ config('app.name') }}</li>
-                    <li class="list-inline-item">{{ config('app.version') }}</li>
+                    <li class="list-inline-item">&copy; {{ date('Y') }} {{ config('app.name') }}</li>
+                    <li class="list-inline-item">Theme by Tabler</li>
+                    <li class="list-inline-item">{{ config('app.version', '2.0.0') }}</li>
                 </ul>
             </div>
         </div>

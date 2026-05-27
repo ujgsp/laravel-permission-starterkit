@@ -14,13 +14,30 @@
         </h1>
 
         <div class="navbar-nav flex-row order-md-last">
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link d-flex lh-1 p-0 px-2" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
-                    <span class="avatar avatar-sm bg-primary-lt text-primary rounded-circle">{{ strtoupper(mb_substr(Auth::user()->name ?? 'U', 0, 1)) }}</span>
-                    <div class="d-none d-xl-block ps-2 text-start">
-                        <div>{{ Auth::user()->name }}</div>
-                        <div class="mt-1 small text-secondary">{{ Auth::user()->getRoleNames()->implode(', ') ?: 'User' }}</div>
+                <div class="d-none d-md-flex">
+                    <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
+                    </a>
+                    <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
+                    </a>
+                    <div class="nav-item dropdown d-none d-md-flex me-3">
+                        <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show language menu">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M3.6 9h16.8" /><path d="M3.6 15h16.8" /><path d="M11.5 3a17 17 0 0 0 0 18" /><path d="M12.5 3a17 17 0 0 1 0 18" /></svg>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <a href="#" class="dropdown-item">English</a>
+                            <a href="#" class="dropdown-item">Bahasa Indonesia</a>
+                        </div>
                     </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link d-flex lh-1 p-0 px-2" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
+                        <span class="avatar avatar-sm bg-primary-lt text-primary rounded-circle">{{ strtoupper(mb_substr(Auth::user()->name ?? 'U', 0, 1)) }}</span>
+                        <div class="d-none d-xl-block ps-2 text-start">
+                            <div>{{ Auth::user()->name }}</div>
+                            <div class="mt-1 small text-secondary">{{ Auth::user()->getRoleNames()->implode(', ') ?: 'User' }}</div>
+                        </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <a class="dropdown-item" href="{{ route('profile.index') }}">Edit Profile</a>
@@ -42,31 +59,31 @@
                 <ul class="navbar-nav">
                     <li class="nav-item {{ Request::routeIs('dashboard.index') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('dashboard.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-home"></i></span>
+                            <span class="nav-link-icon"><i class="ti ti-home"></i></span>
                             <span class="nav-link-title">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item {{ Request::is('dashboard/permissions*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('permissions.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-shield-check"></i></span>
+                            <span class="nav-link-icon"><i class="ti ti-shield-check"></i></span>
                             <span class="nav-link-title">Permissions</span>
                         </a>
                     </li>
                     <li class="nav-item {{ Request::is('dashboard/roles*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('roles.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-users-group"></i></span>
+                            <span class="nav-link-icon"><i class="ti ti-users-group"></i></span>
                             <span class="nav-link-title">Roles</span>
                         </a>
                     </li>
                     <li class="nav-item {{ Request::is('dashboard/users*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('users.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-users"></i></span>
+                            <span class="nav-link-icon"><i class="ti ti-users"></i></span>
                             <span class="nav-link-title">Users</span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <span class="nav-link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
                                     <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
                                     <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>

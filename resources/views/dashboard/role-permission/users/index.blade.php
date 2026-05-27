@@ -2,14 +2,7 @@
 
 @section('title', 'Users')
 @section('description', 'List of all users.')
-
-@section('actions')
-    @can('create.user')
-        <a href="{{ route('users.create') }}" class="btn btn-primary">
-            <i class="ti ti-plus me-1"></i> Add User
-        </a>
-    @endcan
-@endsection
+@section('hide_page_header', true)
 
 @section('content')
     @if (session()->has('success'))
@@ -26,26 +19,36 @@
         </div>
     @endif
 
-    <div class="card mb-3">
-        <div class="card-body">
-            <form method="GET" action="{{ route('users.index') }}">
-                <div class="row g-2 align-items-center">
-                    <div class="col-12 col-md-8 col-lg-6">
-                        <input type="text" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search users">
-                    </div>
-                    <div class="col-12 col-md-auto">
-                        <button class="btn btn-primary w-100" type="submit">
-                            <i class="ti ti-search me-1"></i> Search
-                        </button>
+    <div class="card">
+        <div class="card-header">
+            <div class="row w-100 align-items-center">
+                <div class="col">
+                    <h2 class="card-title mb-0 fs-3">@yield('title')</h2>
+                </div>
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="d-flex flex-wrap btn-list">
+                        <form method="GET" action="{{ route('users.index') }}" class="m-0">
+                            <div class="input-group input-group-flat w-auto">
+                                <span class="input-group-text">
+                                    <i class="ti ti-search"></i>
+                                </span>
+                                <input type="text" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search users...">
+                            </div>
+                        </form>
+                        @can('create.user')
+                            <a href="{{ route('users.create') }}" class="btn btn-primary d-none d-sm-inline-block">
+                                <i class="ti ti-plus me-1"></i> Add User
+                            </a>
+                            <a href="{{ route('users.create') }}" class="btn btn-primary d-sm-none btn-icon" aria-label="Add User">
+                                <i class="ti ti-plus"></i>
+                            </a>
+                        @endcan
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-
-    <div class="card">
         <div class="table-responsive">
-            <table class="table card-table table-vcenter table-hover">
+            <table class="table card-table table-vcenter text-nowrap datatable table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -66,17 +69,16 @@
                                     <span class="badge bg-success-lt text-success me-1">{{ $rolename }}</span>
                                 @endforeach
                             </td>
-                            <td>
-                                <div class="btn-list flex-nowrap">
+                            <td class="text-end">
+                                <div class="btn-list flex-nowrap justify-content-end">
                                     @can('edit.user')
-                                        <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary btn-sm">Edit</a>
                                     @endcan
-
                                     @can('delete.user')
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="post" class="d-inline">
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="post" class="m-0 d-inline">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure want to delete this: {{ $user->name }} ?')">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure want to delete this: {{ $user->name }} ?')">
                                                 Delete
                                             </button>
                                         </form>

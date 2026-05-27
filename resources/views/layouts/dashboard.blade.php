@@ -17,6 +17,7 @@
         @include('layouts._partials.navbar')
 
         <div class="page-wrapper">
+            @unless(View::hasSection('hide_page_header'))
             <div class="page-header d-print-none">
                 <div class="container-xl">
                     <div class="row g-2 align-items-center">
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </div>
+            @endunless
 
             <div class="page-body">
                 <div class="container-xl">

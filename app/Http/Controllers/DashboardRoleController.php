@@ -6,8 +6,8 @@ use App\Http\Requests\RoleStoreRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DashboardRoleController extends Controller
 {
@@ -18,7 +18,7 @@ class DashboardRoleController extends Controller
          * permission dengan cara ini ada beberapa hal yang perlu diperhatikan:
          * 1. Izin (Permission) Harus Sudah Dibuat: Pastikan izin (permission) yang Anda gunakan sudah dibuat di dalam sistem.
          * 2. Izin Harus Sudah Diberikan ke Role atau User: Pastikan role atau user yang mengakses metode tersebut sudah diberikan izin yang sesuai.
-        */
+         */
         $this->middleware('permission:view.role', ['only' => ['index']]);
         $this->middleware('permission:create.role', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit.role', ['only' => ['update', 'edit']]);
@@ -37,8 +37,9 @@ class DashboardRoleController extends Controller
         } else {
             $roles = Role::paginate(10);
         }
+
         return view('dashboard.role-permission.roles.index', [
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 
@@ -72,7 +73,7 @@ class DashboardRoleController extends Controller
     public function edit(Role $role)
     {
         return view('dashboard.role-permission.roles.edit', [
-            'role' => $role
+            'role' => $role,
         ]);
     }
 
@@ -123,7 +124,7 @@ class DashboardRoleController extends Controller
     public function updatePermissionToRole(Request $request, Role $role)
     {
         $validatedData = $request->validate([
-            'permissions' => 'required'
+            'permissions' => 'required',
         ]);
 
         try {
